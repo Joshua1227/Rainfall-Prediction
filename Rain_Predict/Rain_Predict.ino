@@ -13,6 +13,7 @@ void setup(){
   lcd.begin(16, 2);
   
   Serial.begin(9600);
+  delay(500);//Delay to let system boot
   Serial.println("DHT11 Humidity & temperature Sensor\n\n");
   delay(1000);//Wait before accessing Sensor
  
@@ -34,7 +35,7 @@ void loop(){
     float Humidity = DHT.humidity;
     float Temperature = DHT.temperature;
     float Light = LDRValue;
-    delay(2000);//Wait 5 seconds before accessing sensor again.
+    delay(5000);//Wait 5 seconds before accessing sensor again.
     int possibility;
     if(Humidity  > 70.0)
       if(Temperature >= -4.0 && Temperature < 10)
@@ -68,69 +69,44 @@ void loop(){
       case -1:
         Serial.print("There is no possibility of rain \n");
         lcd.print("no chance");
-        delay(2000);
-        showdata(Humidity,Temperature,Light);
-        break;
+      break;
       case 0:
         Serial.print("There is a very low possibility of rain \n");
         lcd.print("very low chance");
-        delay(2000);
-        showdata(Humidity,Temperature,Light);
         break;
       case 1:
         Serial.print("There is a low possibility of rain \n");
         lcd.print("low chance");
-        delay(2000);
-        showdata(Humidity,Temperature,Light);
         break;
       case 2:
         Serial.print("There is a slight chance of rain \n");
         lcd.print("slight chance");
-        delay(2000);
-        showdata(Humidity,Temperature,Light);
         break;
       case 3:
         Serial.print("There is moderate chance of rain \n");
         lcd.print("moderate chance");
-        delay(2000);
-        showdata(Humidity,Temperature,Light);
         break;
       case 4:
         Serial.print("There is a high possibility of rain \n");
         lcd.print("high chance ");
-        delay(2000);
-        showdata(Humidity,Temperature,Light);
         break;
       case 5:
         Serial.print("There is a very high possibility of rain \n");
         lcd.print("very high chance");
-        delay(2000);
-        showdata(Humidity,Temperature,Light);
     }
+    // set the cursor to column 0, line 1
 
+    //lcd.print(1);//print name
+
+//    lcd.setCursor(0, 1); // set the cursor to column 0, line 2
+
+//    lcd.print(2);//print name
+
+//    delay(750);//delay of 0.75sec
+
+  //  lcd.scrollDisplayLeft();//shifting data on LCD
+
+    //lcd.setCursor(0, 0);// set the cursor to column 0, line1
+  //Fastest should be once every two seconds.
  return;
 }// end loop() 
-
-void showdata(float humidity,float temperature,float light)
-{
-  String y="Hum Temp light";
-  lcd.setCursor(0,0);
-  lcd.print("                ");
-  lcd.setCursor(0,0);
-  lcd.print(y);
-  delay(2000);
-  lcd.setCursor(0,0);
-  lcd.print("                ");
-  
-  lcd.setCursor(0,0);
-  String g="";
-  g=g+humidity+" ";
-  g=g+temperature+" ";
-  g=g+light+" ";
-  lcd.print(g);
-  delay(2000);
-  lcd.setCursor(0,0);
-  lcd.print("                ");
-  
-}
-
